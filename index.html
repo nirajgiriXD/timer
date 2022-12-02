@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        html, body {
+            height: 100%;
+        }   
+        body {
+            margin: 0;
+        }
+        #wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        #timerContainer{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            width: 500px;
+            height: 300px;
+            border-radius: 8px;
+            background-color: #eee;
+        }
+        #time{
+            font-size: 89px;
+        }
+        #btnContainer {
+            margin-top: 34px;
+        }
+        .btn {
+            width: 89px;
+            height: 44px;
+            background-color: black;
+            border-radius: 8px;
+            color: white;
+            margin: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+        <div id="timerContainer">
+            <div id="time">00:00:00:00</div>
+            <div id="btnContainer">
+                <button id="reset" class="btn">Reset</button>
+                <button id="pause" class="btn">Pause</button>
+                <button id="start" class="btn">Start</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const resetBtn = document.getElementById('reset');
+        const pauseBtn = document.getElementById('pause');
+        const startBtn = document.getElementById('start');
+        const timer = document.getElementById('time');
+
+        let mil = 0;
+        let sec = 0;
+        let min = 0;
+        let hour = 0;
+        let isStarted = false;
+        let timerSetInterval = null;
+
+        function prettify(number) {
+            if(String(number).length < 2) {
+                return `0${number}`;
+            }
+            return number;
+        }
+
+        function startTimer() {
+            isStarted = true;
+            mil += 1;
+            if (mil%100==0 && mil!=0) {
+                sec += 1;
+                mil = 0;
+            }
+            if (sec%60==0 && sec!=0) {
+                min += 1;
+                sec = 0;
+            }
+            if (min%60==0 && min!=0) {
+                hour += 1;
+                min = 0;
+            }
+            timer.innerText = `${prettify(hour)}:${prettify(min)}:${prettify(sec)}:${mil}`;
+        }
+
+        startBtn.addEventListener('click', () => {
+            if(isStarted==false) {
+                timerSetInterval = setInterval(() => {
+                    startTimer();
+                }, 1);
+            }
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            isStarted = false;
+            clearInterval(timerSetInterval);
+        });
+
+        resetBtn.addEventListener('click', () => {
+            timer.innerText = `00:00:00:00`;
+            isStarted = false;
+            mil = 0;
+            sec = 0;
+            min = 0;
+            hour = 0;
+        });
+
+    </script>
+
+</body>
+
+</html>
