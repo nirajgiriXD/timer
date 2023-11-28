@@ -102,6 +102,7 @@
         }
 
         startBtn.addEventListener('click', () => {
+            startBtn.innerText = 'Resume';
             if(isStarted==false) {
                 timerSetInterval = setInterval(() => {
                     startTimer();
