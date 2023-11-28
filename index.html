@@ -69,6 +69,7 @@
         const resetBtn = document.getElementById('reset');
         const startBtn = document.getElementById('start');
         const timer = document.getElementById('time');
+        const milliSecondInterval = 10;
 
         let mil = 0;
         let sec = 0;
@@ -85,7 +86,7 @@
 
         function startTimer() {
             mil += 1;
-            if (mil%1000==0 && mil!=0) {
+            if (mil%100==0 && mil!=0) {
                 sec += 1;
                 mil = 0;
             }
@@ -105,7 +106,7 @@
                 startBtn.innerText = 'Pause';
                 timerSetInterval = setInterval(() => {
                     startTimer();
-                }, 1);
+                }, milliSecondInterval);
             } else if (startBtn.innerText === 'Pause') {
                 startBtn.innerText = 'Resume';
                 clearInterval(timerSetInterval);
@@ -113,7 +114,7 @@
                 startBtn.innerText = 'Pause';
                 timerSetInterval = setInterval(() => {
                     startTimer();
-                }, 1);
+                }, milliSecondInterval);
             }
         });
 
