@@ -101,7 +101,9 @@
 
         startBtn.addEventListener('click', () => {
             if (startBtn.innerText === 'Start') {
+                isStarted = false;
                 startBtn.innerText = 'Pause';
+                clearInterval(timerSetInterval);
             } else {
                 startBtn.innerText = 'Resume';
             }
