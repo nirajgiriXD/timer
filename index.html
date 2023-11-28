@@ -71,7 +71,6 @@
         let sec = 0;
         let min = 0;
         let hour = 0;
-        let isStarted = false;
         let timerSetInterval = null;
 
         function prettify(number) {
@@ -101,13 +100,15 @@
 
         startBtn.addEventListener('click', () => {
             if (startBtn.innerText === 'Start') {
-                isStarted = false;
                 startBtn.innerText = 'Pause';
+                timerSetInterval = setInterval(() => {
+                    startTimer();
+                }, 1);
+            } else if (startBtn.innerText === 'Pause') {
+                startBtn.innerText = 'Resume';
                 clearInterval(timerSetInterval);
             } else {
-                startBtn.innerText = 'Resume';
-            }
-            if(isStarted==false) {
+                startBtn.innerText = 'Pause';
                 timerSetInterval = setInterval(() => {
                     startTimer();
                 }, 1);
@@ -117,7 +118,6 @@
         resetBtn.addEventListener('click', () => {
             startBtn.innerText = 'Start';
             timer.innerText = `00:00:00:00`;
-            isStarted = false;
             mil = 0;
             sec = 0;
             min = 0;
