@@ -111,8 +111,10 @@
         });
 
         pauseBtn.addEventListener('click', () => {
+            if (timer.innerText !== '00:00:00:00') {
+                startBtn.innerText = 'Resume';
+            }
             isStarted = false;
-            startBtn.innerText = 'Resume';
             clearInterval(timerSetInterval);
         });
 
